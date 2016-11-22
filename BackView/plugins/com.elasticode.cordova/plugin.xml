@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.elasticode.cordova"
+        version="2.0.4">
+
+  <name>Elasticode Cordova Plugin</name>
+
+
+  <engines>
+    <engine name="cordova" version=">=3.4.0"/>
+  </engines>
+
+  <asset src="www/elasticode.js" target="js/elasticode.js"/>
+
+  <js-module src="www/elasticode.js" name="Elasticode">
+    <clobbers target="elasticode" />
+  </js-module>
+
+  <platform name="ios">
+    <preference name="IOS_URL_SCHEME" />
+    
+    <config-file target="config.xml" parent="/widget">
+      <feature name="Elasticode">
+        <param name="ios-package" value="ElasticodeCordovaPlugin" />
+        <param name="onload" value="true" />
+      </feature>
+    </config-file>
+    <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+        <array>
+            <dict>
+                <key>CFBundleURLSchemes</key>
+                <array>
+                    <string>$IOS_URL_SCHEME</string>
+                </array>
+            </dict>
+        </array>
+    </config-file>
+
+    <header-file src="src/ios/ElasticodeCordovaPlugin.h" target-dir="elasticode/ElasticodeCordovaPlugin"/>
+    <source-file src="src/ios/ElasticodeCordovaPlugin.m" target-dir="elasticode/ElasticodeCordovaPlugin"/>
+
+    <framework src="src/ios/ElastiCode.framework" custom="true" />
+    <framework src="QuartzCore.framework" />
+    <framework src="CFNetwork.framework" />
+    <framework src="Foundation.framework" />
+    <framework src="MobileCoreServices.framework" />
+    <framework src="Security.framework" />
+    <framework src="AVFoundation.framework" />
+    <framework src="SystemConfiguration.framework" />
+    <framework src="UIKit.framework" />
+
+  </platform>
+  <platform name="android">
+      <preference name="ANDROID_URL_SCHEME" />
+      <config-file target="config.xml" parent="/widget">
+          <feature name="ElastiCode">
+              <param name="android-package" value="com.elasticode.cordova.ElasticodeCordovaPlugin" />
+              <param name="onload" value="true" />
+          </feature>
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="./application/activity">
+          <intent-filter>
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <category android:name="android.intent.category.BROWSABLE" />
+              <data android:scheme="$ANDROID_URL_SCHEME" android:host="exp" />
+          </intent-filter>
+      </config-file>
+      <config-file target="AndroidManifest.xml" parent="/*">
+          <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+          <uses-permission android:name="android.permission.INTERNET" />
+          <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+      </config-file>
+      
+      <source-file src="src/android/ElasticodeCordovaPlugin.java" target-dir="src/com/elasticode/cordova"/>
+      <resource-file src="src/android/aar/elasticode.aar" target="aar/elasticode.aar" />
+      <framework src="com.android.support:support-v4:+" />
+      <framework src="src/android/myFile.gradle" custom="true" type="gradleReference" />
+      
+  </platform>
+</plugin>

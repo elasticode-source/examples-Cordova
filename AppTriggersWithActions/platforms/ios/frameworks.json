@@ -1,0 +1,9 @@
+{
+    "QuartzCore.framework": 1,
+    "CFNetwork.framework": 1,
+    "Foundation.framework": 1,
+    "Security.framework": 1,
+    "AVFoundation.framework": 1,
+    "SystemConfiguration.framework": 1,
+    "UIKit.framework": 1
+}
